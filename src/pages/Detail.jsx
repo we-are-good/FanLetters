@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   AvatarAndNickname,
@@ -16,10 +16,13 @@ import { AvatarFigure } from "../styles/LetterCardStyle";
 import { getFormattedDate } from "../util/date";
 import Button from "../util/Button";
 import letterimage from "../assets/letterimage.png";
-import { LetterContext } from "../context/LetterContext";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteLetter, editLetter } from "../redux/modules/letters";
 
 function Detail() {
-  const { letters, setLetters } = useContext(LetterContext);
+  const dispatch = useDispatch();
+  const letters = useSelector((state) => state.letters);
+
   const [isEdition, setIsEdition] = useState(false);
   const [editingText, setEditingText] = useState("");
   const navigation = useNavigate();
@@ -33,21 +36,15 @@ function Detail() {
     const answer = window.confirm("정말로 삭제하시겠습니까?");
     if (!answer) return;
 
-    const newLetters = letters.filter((letter) => letter.id !== id);
+    dispatch(deleteLetter(id));
+
     navigation("/");
-    setLetters(newLetters);
   };
 
   const onEditDone = () => {
     if (!editingText) return alert("수정사항이 없습니다.");
 
-    const newLetters = letters.map((letter) => {
-      if (letter.id === id) {
-        return { ...letter, content: editingText };
-      }
-      return letter;
-    });
-    setLetters(newLetters);
+    dispatch(editLetter(id, editingText));
     setIsEdition(false);
     setEditingText("");
   };

@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Form, InputWrapper, SelectWrapper } from "../styles/AddFormStyle";
 import { v4 as uuid } from "uuid";
 import Button from "../util/Button";
-import { LetterContext } from "../context/LetterContext";
+import { useDispatch } from "react-redux";
+import { addLetter } from "../redux/modules/letters";
 
 function AddForm() {
-  const { setLetters } = useContext(LetterContext);
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("Ava Max");
@@ -23,7 +24,7 @@ function AddForm() {
       createdAt: new Date(),
     };
 
-    setLetters((prev) => [newLetter, ...prev]);
+    dispatch(addLetter(newLetter));
     setNickname("");
     setContent("");
   };

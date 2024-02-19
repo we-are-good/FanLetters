@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import LetterCard from "./LetterCard";
 import { ListWrapper } from "../styles/LetterCardStyle";
-import { LetterContext } from "../context/LetterContext";
-import { MemberContext } from "../context/MemberContext";
+import { useSelector } from "react-redux";
 
 function LetterList() {
-  const { letters } = useContext(LetterContext);
-  const { activeMember } = useContext(MemberContext);
+  const activeMember = useSelector((state) => state.member);
+  const letters = useSelector((state) => state.letters);
 
   const filteredLetters = letters.filter(
     (letter) => letter.writedTo === activeMember
@@ -15,7 +14,7 @@ function LetterList() {
     <ListWrapper>
       {filteredLetters.length === 0 ? (
         <p>
-          {activeMember}의 팬레터가 없습니다. 첫번째 팬체터의 주인공이
+          {activeMember}의 팬레터가 없습니다. 첫번째 팬레터의 주인공이
           되어보세요.
         </p>
       ) : (

@@ -4,20 +4,18 @@ import Home from "./pages/Home";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./styles/GlobalStyle";
 import Router from "./router/Router";
-import LetterContextProvider from "./context/LetterContext";
-import MemberContextProvider from "./context/MemberContext";
+import { Provider } from "react-redux";
+import store from "./redux/config/consfigStore";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <MemberContextProvider>
-      <LetterContextProvider>
-        <Router>
-          <Home />
-          <GlobalStyle />
-        </Router>
-      </LetterContextProvider>
-    </MemberContextProvider>
+    <Provider store={store}>
+      <Router>
+        <Home />
+        <GlobalStyle />
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 

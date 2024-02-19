@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, InputWrapper, SelectWrapper } from "../styles/AddFormStyle";
 import { v4 as uuid } from "uuid";
 import Button from "../util/Button";
+import { LetterContext } from "../context/LetterContext";
 
-function AddForm({ setLetters }) {
+function AddForm() {
+  const { setLetters } = useContext(LetterContext);
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("Ava Max");

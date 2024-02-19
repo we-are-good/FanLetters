@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Tab, TabsWrapepr } from "../styles/TabStyle";
+import { MemberContext } from "../context/MemberContext";
 
-function Tabs({ activeMember, setActiveMember }) {
+function Tabs() {
+  const { activeMember, setActiveMember } = useContext(MemberContext);
   const onActiveMember = (event) => {
     if (event.target === event.currentTarget) return;
     setActiveMember(event.target.textContent);

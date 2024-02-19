@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   AvatarAndNickname,
@@ -16,12 +16,15 @@ import { AvatarFigure } from "../styles/LetterCardStyle";
 import { getFormattedDate } from "../util/date";
 import Button from "../util/Button";
 import letterimage from "../assets/letterimage.png";
+import { LetterContext } from "../context/LetterContext";
 
-function Detail({ letters, setLetters }) {
+function Detail() {
+  const { letters, setLetters } = useContext(LetterContext);
   const [isEdition, setIsEdition] = useState(false);
   const [editingText, setEditingText] = useState("");
   const navigation = useNavigate();
   const { id } = useParams();
+
   const { avatar, nickname, createdAt, writedTo, content } = letters.find(
     (letter) => letter.id === id
   );

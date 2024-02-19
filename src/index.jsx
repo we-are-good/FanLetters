@@ -4,14 +4,20 @@ import Home from "./pages/Home";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./styles/GlobalStyle";
 import Router from "./router/Router";
+import LetterContextProvider from "./context/LetterContext";
+import MemberContextProvider from "./context/MemberContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Home />
-      <GlobalStyle />
-    </Router>
+    <MemberContextProvider>
+      <LetterContextProvider>
+        <Router>
+          <Home />
+          <GlobalStyle />
+        </Router>
+      </LetterContextProvider>
+    </MemberContextProvider>
   </React.StrictMode>
 );
 

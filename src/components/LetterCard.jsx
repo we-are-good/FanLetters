@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   AvatarFigure,
   Content,
@@ -9,23 +9,22 @@ import {
 import letterimage from "../assets/letterimage.png";
 import { useNavigate } from "react-router-dom";
 import { getFormattedDate } from "../util/date";
+import { LetterContext } from "../context/LetterContext";
 
 function LetterCard({ letter }) {
-  const { id, avatar, nickname, createdAt, content } = letter;
-
   const navigation = useNavigate();
   return (
-    <LetterWrapper onClick={() => navigation(`/detail/${id}`)}>
+    <LetterWrapper onClick={() => navigation(`/detail/${letter.id}`)}>
       <UserInfo>
         <AvatarFigure>
-          <img src={avatar ?? letterimage} alt="아바타이미지" />
+          <img src={letter.avatar ?? letterimage} alt="아바타이미지" />
         </AvatarFigure>
         <NicknameAndData>
-          <p>{nickname}</p>
-          <time>{getFormattedDate(createdAt)}</time>
+          <p>{letter.nickname}</p>
+          <time>{getFormattedDate(letter.createdAt)}</time>
         </NicknameAndData>
       </UserInfo>
-      <Content>{content}</Content>
+      <Content>{letter.content}</Content>
     </LetterWrapper>
   );
 }
